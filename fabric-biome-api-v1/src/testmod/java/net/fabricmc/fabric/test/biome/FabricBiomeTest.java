@@ -36,8 +36,8 @@ import net.minecraft.world.gen.feature.ConfiguredStructureFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceConfig;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
@@ -50,6 +50,7 @@ import net.fabricmc.fabric.api.biome.v1.NetherBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
 import net.fabricmc.fabric.api.biome.v1.TheEndBiomes;
+import net.fabricmc.fabric.api.tag.TagFactory;
 import net.fabricmc.fabric.test.biome.mixin.DecoratorsAccessor;
 
 /**
@@ -121,7 +122,10 @@ public class FabricBiomeTest implements ModInitializer {
 							context.getGenerationSettings().addFeature(GenerationStep.Feature.TOP_LAYER_MODIFICATION,
 									BuiltinRegistries.CONFIGURED_FEATURE.getKey(COMMON_DESERT_WELL).get()
 							);
-						});
+						})
+				.add(ModificationPhase.ADDITIONS,
+						BiomeSelectors.tag(TagFactory.BIOME.create(new Identifier(MOD_ID, "tag_selector_test"))),
+						context -> context.getEffects().setSkyColor(0x770000));
 	}
 
 	// These are used for testing the spacing of custom end biomes.

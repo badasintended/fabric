@@ -26,6 +26,7 @@ import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
@@ -180,5 +181,14 @@ public final class BiomeSelectors {
 		Collections.addAll(categorySet, categories);
 
 		return context -> categorySet.contains(context.getBiome().getCategory());
+	}
+
+	/**
+	 * Matches biomes in this tag.
+	 *
+	 * @see net.fabricmc.fabric.api.tag.TagFactory#BIOME
+	 */
+	public static Predicate<BiomeSelectionContext> tag(Tag<Biome> tag) {
+		return context -> tag.contains(context.getBiome());
 	}
 }
